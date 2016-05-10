@@ -14,8 +14,14 @@ public class AuthorTest {
     try(Connection con = DB.sql2o.open()) {
       String deleteAuthorQuery = "DELETE FROM author *;";
       String deleteBooksQuery = "DELETE FROM books *;";
+      String deleteAuthorBooksQuery = "DELETE FROM author_books *;";
+      String deletePatronQuery = "DELETE FROM patrons *;";
+      String deleteCheckoutsQuery = "DELETE FROM books *;";
       con.createQuery(deleteAuthorQuery).executeUpdate();
       con.createQuery(deleteBooksQuery).executeUpdate();
+      con.createQuery(deleteAuthorBooksQuery).executeUpdate();
+      con.createQuery(deletePatronQuery).executeUpdate();
+      con.createQuery(deleteCheckoutsQuery).executeUpdate();
     }
   }
 

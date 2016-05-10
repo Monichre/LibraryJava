@@ -8,11 +8,12 @@ public class Book {
   private int id;
   private boolean checked_out;
   private String genre;
+  private int copies = 10;
 
   public Book(String title, String genre) {
     this.title = title;
     this.genre = genre;
-    this.checked_out = false;
+
   }
 
   public String getTitle() {
@@ -23,17 +24,19 @@ public class Book {
     return genre;
   }
 
+  public int getCopies(){
+    return copies;
+  }
+
   public boolean isCheckedOut() {
+    if(this.getCopies() <= 0 ){
+      checked_out = true;
+    } else {
+      checked_out = false;
+    }
     return checked_out;
   }
 
-  public void checkOut() {
-     checked_out = true;
-     try(Connection con = DB.sql2o.open()) {
-       String sql = "UPDATE books SET checked_out = :checked_out WHERE id = :id";
-       con.createQuery(sql).addParameter("checked_out", checked_out).addParameter("id", this.getId()).executeUpdate();
-     }
-  }
 
   public int getId(){
     return id;
@@ -107,4 +110,10 @@ public class Book {
     }
   }
 
+  public static Book findBookByTitle(String title){
+    try(Connection con = DB.sql2o.open()) {
+      String titleQuery = "SELECT * FROM books WHERE title = :title";
+      return con.createQuery(titleQuery).addParameter("title", title).executeAndFetchFirst(Book.class);
+    }
+  }
 }

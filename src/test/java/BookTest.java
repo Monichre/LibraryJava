@@ -14,8 +14,14 @@ public class BookTest {
     try(Connection con = DB.sql2o.open()) {
       String deleteAuthorQuery = "DELETE FROM author *;";
       String deleteBooksQuery = "DELETE FROM books *;";
+      String deleteAuthorBooksQuery = "DELETE FROM author_books *;";
+      String deletePatronQuery = "DELETE FROM patrons *;";
+      String deleteCheckoutsQuery = "DELETE FROM books *;";
       con.createQuery(deleteAuthorQuery).executeUpdate();
       con.createQuery(deleteBooksQuery).executeUpdate();
+      con.createQuery(deleteAuthorBooksQuery).executeUpdate();
+      con.createQuery(deletePatronQuery).executeUpdate();
+      con.createQuery(deleteCheckoutsQuery).executeUpdate();
     }
   }
 
@@ -81,13 +87,6 @@ public class BookTest {
     assertEquals(0, Book.all().size());
   }
 
-  @Test
-  public void Book_checkedOutUpdatesDatabase(){
-    Book testBook = new Book("Guns, Germs and Steel", "General Non-Fiction");
-    testBook.save();
-    testBook.checkOut();
-    assertEquals(true, Book.findBook(testBook.getId()).isCheckedOut());
-  }
 
   @Test
   public void Book_addAuthor() {
@@ -98,5 +97,11 @@ public class BookTest {
     testBook.addAuthor(testAuthor);
     Author bookAuthor = testBook.getAuthors().get(0);
     assertTrue(testAuthor.equals(bookAuthor));
+  }
+  @Test
+  public void Book_findBookByTitleReturnsBook(){
+    Book testBook = new Book("Guns, Germs and Steel", "General Non-Fiction");
+    testBook.save();
+    assertEquals(testBook, Book.findBookByTitle("Guns, Germs and Steel"));
   }
 }
