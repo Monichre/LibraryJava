@@ -1,1 +1,37 @@
+body {
+  margin: auto;
+}
 
+header {
+  margin: auto;
+  border-bottom: 2px solid black;
+}
+
+.form-inline{
+  display: block;
+  margin: auto;
+  text-align: center;
+  padding: 5%;
+}
+
+
+.patronForm {
+  margin: auto;
+  text-align: center;
+  margin-top: 40px;
+}
+
+.patronForm input {
+  width: 150px;
+  display: block;
+  margin: auto;
+}
+
+.btn {
+  display: block;
+  margin: auto;
+}
+
+.form-inline button {
+  margin-top: 10px;
+}

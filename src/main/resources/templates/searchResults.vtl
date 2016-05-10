@@ -1,0 +1,21 @@
+<div class="results">
+  #if($patron.getName())
+    <h3>Here are your results, $patron.getName()</h3>
+  #else
+  #end
+  <h1>$searchedBook.getTitle()</h1>
+  <p>$searchedBook.getGenre()</p>
+  <p>$searchedBook.getCopies()</p>
+  <p>
+    Authors:
+  </p>
+
+  #foreach ($author in $searchedBook.getAuthors())
+    <li>$author.getName()</li>
+  #end
+
+
+</div>
+<form action="/checkoutBook/$searchedBook.getId()/$patron.getId()" method="post">
+  <input type="submit" name="name" class="btn btn-danger">Checkout This Book
+</form>

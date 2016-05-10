@@ -1,1 +1,42 @@
+<header>
+  <h2>Librarians Only:</h2>
+  <form class="form-inline" action="/addBook" method="post">
+    <div class="form-group">
+      <label for="title">title</label>
+      <input type="text" name= "title" class="form-control" id="title">
+    </div>
+    <div class="form-group">
+      <label for="genre">Genre</label>
+      <input type="text" name= "genre" class="form-control" id="genre">
+    </div>
+    <div class="form-group">
+      <label for="author">author</label>
+      <input type="text" name= "author" class="form-control" id="author">
+    </div>
+    <button type="submit" class="btn btn-default">Add to Library</button>
+  </form>
+</header>
+<!--
+#if($books.size() == 0)
+#else
+  #foreach($book in $books)
+    $book.getTitle()
+  #end
+#end -->
 
+<main>
+  <form class="patronForm" action="/patronSearch" method="post">
+    <h2>Search by Title</h2>
+    <div class="form-group">
+      <label for="patronName">Enter Your Name</label>
+      <input type="text" name= "patronName" class="form-control" id="patronName">
+    </div>
+    <div class="form-group">
+
+      <label for="patronTitle">Title</label>
+      <input type="text" name= "patronTitle" class="form-control" id="patronTitle">
+      <button type="submit">Find your book</button>
+    </div>
+
+  </form>
+</main>

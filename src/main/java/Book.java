@@ -8,12 +8,12 @@ public class Book {
   private int id;
   private boolean checked_out;
   private String genre;
-  private int copies = 10;
+  private int copies;
 
   public Book(String title, String genre) {
     this.title = title;
     this.genre = genre;
-
+    this.copies = 10;
   }
 
   public String getTitle() {
@@ -44,8 +44,8 @@ public class Book {
 
   public void save() {
     try(Connection con = DB.sql2o.open()) {
-      String sql = "INSERT INTO books (title, genre, checked_out) VALUES (:title, :genre, :checked_out)";
-    this.id = (int) con.createQuery(sql, true).addParameter("title", this.getTitle()).addParameter("genre", this.getGenre()).addParameter("checked_out", this.isCheckedOut()).executeUpdate().getKey();
+      String sql = "INSERT INTO books (title, genre, checked_out, copies) VALUES (:title, :genre, :checked_out, :copies)";
+    this.id = (int) con.createQuery(sql, true).addParameter("title", this.getTitle()).addParameter("genre", this.getGenre()).addParameter("checked_out", this.isCheckedOut()).addParameter("copies", this.getCopies()).executeUpdate().getKey();
     }
   }
 
@@ -68,7 +68,7 @@ public class Book {
   }
   public static List<Book> all() {
     try(Connection con = DB.sql2o.open()) {
-      String sql = "SELECT title, genre, checked_out FROM books";
+      String sql = "SELECT * FROM books";
       return con.createQuery(sql).executeAndFetch(Book.class);
     }
   }

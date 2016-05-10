@@ -43,6 +43,7 @@ public class PatronTest {
     newPatron.save();
     assertEquals("Will Legos", Patron.findPatron(newPatron.getId()).getName());
   }
+
   @Test
   public void Patron_CheckOut() {
     Patron newPatron = new Patron("Will Legos");
@@ -50,5 +51,16 @@ public class PatronTest {
     Book newBook = new Book("The Things We Carried", "Historical Fiction");
     newPatron.checkOut(newBook);
     assertEquals(1, newPatron.getBooks().size());
+  }
+
+  @Test
+  public void Patron_CheckOutUpdatesDatabase() {
+    Patron newPatron = new Patron("Will Legos");
+    newPatron.save();
+    Book newBook = new Book("The Things We Carried", "Historical Fiction");
+    newBook.save();
+    newPatron.checkOut(newBook);
+    Book foundBook = Book.findBook(newBook.getId());
+    assertEquals(9, foundBook.getCopies());
   }
 }
